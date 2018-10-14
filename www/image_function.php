@@ -6,7 +6,7 @@ $allowed_image_ext = array('png', 'jpg', 'jpeg','gif');
 
 function save_image_and_display($target_host, $target_path) {
 	global $imagepath, $allowed_image_ext;
-	
+
 	$target_url = $target_host . $target_path;
 
 	$agent= 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36 Edge/17.0';
@@ -21,7 +21,7 @@ function save_image_and_display($target_host, $target_path) {
 	curl_setopt($ch, CURLOPT_MAXREDIRS, 10);
 	$result=curl_exec($ch);
 	curl_close($ch);
-	
+
 	if ($result) {
 		// security check1
 		$local_path = pathinfo($target_path, PATHINFO_DIRNAME);
