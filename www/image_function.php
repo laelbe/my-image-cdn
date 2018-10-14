@@ -20,9 +20,10 @@ function save_image_and_display($target_host, $target_path) {
 	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 	curl_setopt($ch, CURLOPT_MAXREDIRS, 10);
 	$result=curl_exec($ch);
+	$httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 	curl_close($ch);
 
-	if ($result) {
+	if ($result && $httpcode == 200) {
 		// security check1
 		$local_path = pathinfo($target_path, PATHINFO_DIRNAME);
 		$local_filename = basename($target_path);
@@ -50,13 +51,14 @@ function save_image_and_display($target_host, $target_path) {
 		echo $result;
 	}
 	else {
-		header('HTTP/1.1 404 Not Found');
+		error_404();
 	}
 
 	exit;
 }
 
 function error_404() {
+	header('my-cache-status: MISS');
 	header("HTTP/1.1 404 Not Found");
 	exit;
 }
