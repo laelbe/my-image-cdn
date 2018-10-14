@@ -45,6 +45,7 @@ function save_image_and_display($target_host, $target_path) {
 		}
 
 		// display
+		header('my-cache-status: MISS');
 		header('Content-Type: image/png');
 		echo $result;
 	}
