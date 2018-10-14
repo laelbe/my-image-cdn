@@ -1,0 +1,16 @@
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteRule ^invalid_referer\.png$ - [L]
+
+RewriteCond %{HTTP_REFERER} !^$
+RewriteCond %{HTTP_REFERER} !^http(s)?://(.+\.)?naver.com [NC]
+RewriteCond %{HTTP_REFERER} !^http(s)?://(.+\.)?daum.com [NC]
+RewriteCond %{HTTP_REFERER} !^http(s)?://(.+\.)?namu.wiki [NC]
+RewriteRule \.(jpg|jpeg|png|gif)$ https://img.lael.be/invalid_referer.png [NC,R,L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
