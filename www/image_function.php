@@ -3,13 +3,19 @@ if(!defined('_MYCDN_')) error_404();
 
 $imagepath = __DIR__;
 $allowed_image_ext = array('png', 'jpg', 'jpeg','gif');
+$contents_types = array(
+	'png' => 'image/png',
+	'jpg' => 'image/jpeg',
+	'jpeg' => 'image/jpeg',
+	'gif' => 'image/gif'
+);
 
 function save_image_and_display($target_host, $target_path) {
-	global $imagepath, $allowed_image_ext;
+	global $imagepath, $allowed_image_ext, $contents_types;
 
 	$target_url = $target_host . $target_path;
 
-	$agent= 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36 Edge/17.0';
+	$agent= 'MYCDN/1.0';
 
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -30,7 +36,7 @@ function save_image_and_display($target_host, $target_path) {
 		$local_filename_ext = pathinfo($local_filename, PATHINFO_EXTENSION);
 		if (!in_array($local_filename_ext, $allowed_image_ext)) die('error');
 
-		$local_fullpath = $imagepath . $local_path . '/' . $local_filename;
+		$local_fullpath = "{$imagepath}{$local_path}/{$local_filename}";
 
 		// create folder if not exist
 		if (!file_exists($imagepath . $local_path)) exec('mkdir -p ' . $imagepath . $local_path);
@@ -40,6 +46,7 @@ function save_image_and_display($target_host, $target_path) {
 		if (exif_imagetype($local_fullpath) === FALSE) {
 			// if not an image -> overwrite
 			copy("{$imagepath}/1x1_blank.png", $local_fullpath);
+			$local_filename_ext = 'png';
 
 			// read again
 			$result = file_get_contents($local_fullpath);
@@ -47,7 +54,7 @@ function save_image_and_display($target_host, $target_path) {
 
 		// display
 		header('my-cache-status: MISS');
-		header('Content-Type: image/png');
+		header("Content-Type: {$contents_types[$local_filename_ext]}");
 		echo $result;
 	}
 	else {
