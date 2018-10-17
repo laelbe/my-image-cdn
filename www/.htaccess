@@ -16,9 +16,11 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . /index.php [L]
 </IfModule>
 
+<IfModule mod_headers.c>
 <Files ~ "\.(png|jpg|jpeg|gif)$">
-header add my-cache-status "HIT"
-header add cache-control "public, max-age=2678400"
+header set my-cache-status "HIT"
+header set cache-control "public, max-age=2678400"
 </Files>
 
-header add my-ray "KR1"
+header set my-ray "KR1"
+</IfModule>
