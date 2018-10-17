@@ -13,15 +13,19 @@ $contents_types = array(
 function save_image_and_display($target_host, $target_path) {
 	global $imagepath, $allowed_image_ext, $contents_types;
 
-	$target_url = $target_host . $target_path;
+	// security check1
+	$local_path = pathinfo($target_path, PATHINFO_DIRNAME);
+	$local_filename = basename($target_path);
+	$local_filename_ext = pathinfo($local_filename, PATHINFO_EXTENSION);
+	if (!in_array($local_filename_ext, $allowed_image_ext)) die('error');
 
-	$agent= 'MYCDN/1.0';
+	$target_url = $target_host . $target_path;
 
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 	curl_setopt($ch, CURLOPT_VERBOSE, false);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($ch, CURLOPT_USERAGENT, $agent);
+	curl_setopt($ch, CURLOPT_USERAGENT, 'MYCDN/1.0');
 	curl_setopt($ch, CURLOPT_URL, $target_url);
 	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 	curl_setopt($ch, CURLOPT_MAXREDIRS, 10);
@@ -30,11 +34,6 @@ function save_image_and_display($target_host, $target_path) {
 	curl_close($ch);
 
 	if ($result && $httpcode == 200) {
-		// security check1
-		$local_path = pathinfo($target_path, PATHINFO_DIRNAME);
-		$local_filename = basename($target_path);
-		$local_filename_ext = pathinfo($local_filename, PATHINFO_EXTENSION);
-		if (!in_array($local_filename_ext, $allowed_image_ext)) die('error');
 
 		$local_fullpath = "{$imagepath}{$local_path}/{$local_filename}";
 
