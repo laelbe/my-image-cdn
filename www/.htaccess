@@ -9,7 +9,7 @@ RewriteCond %{HTTP_REFERER} !^http(s)?://(.+\.)?naver\.com [NC]
 RewriteCond %{HTTP_REFERER} !^http(s)?://(.+\.)?daum\.com [NC]
 RewriteCond %{HTTP_REFERER} !^http(s)?://(.+\.)?namu\.wiki [NC]
 RewriteCond %{HTTP_REFERER} !^http(s)?://blog\.lael\.be [NC]
-RewriteRule \.(jpg|jpeg|png|gif)$ https://img.lael.be/invalid_referer.png [NC,R,L]
+RewriteRule \.(jpg|jpeg|png|gif|css|js)$ https://img.lael.be/invalid_referer.png [NC,R,L]
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
@@ -17,7 +17,7 @@ RewriteRule . /index.php [L]
 </IfModule>
 
 <IfModule mod_headers.c>
-<Files ~ "\.(png|jpg|jpeg|gif)$">
+<Files ~ "\.(png|jpg|jpeg|gif|css|js)$">
 header set my-cache-status "HIT"
 header set cache-control "public, max-age=2678400"
 </Files>
