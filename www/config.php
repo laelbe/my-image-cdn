@@ -3,10 +3,12 @@
  * my-image-cdn (https://github.com/laelbe/my-image-cdn)
  * configuration file.
  */
-if(!defined('_MYCDN_')) error_404();
+if (!defined('_MYCDN_')) {
+    exit();
+}
 
 // original resource host
-$original_host = 'https://blog.lael.be'; 
+$original_host = 'https://blog.lael.be';
 
 // allowed extensions
 $allowed_extension = array();
