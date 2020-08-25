@@ -15,11 +15,13 @@ This code will help you to create your custom CDN Edge.
 ## 설치 방법 (How to install)
 
 ### 아파치
-- `config.php` 파일을 수정하세요. **$original_host** 값을 수정해야 합니다.
+- `config.php` 파일을 수정하세요. **$original_host** 값을 수정해야 합니다.  
+파일 확장자 필터링 값을 확인해주세요. 원한다면 **$allowed_extension[]** 값을 수정해주세요.
 - `.htaccess` 파일을 수정하세요. 이 리소스를 호출할 호스트를 등록해주세요.
 
 ### NGINX
-- `config.php` 파일을 수정하세요. **$original_host** 값을 수정해야 합니다.
+- `config.php` 파일을 수정하세요. **$original_host** 값을 수정해야 합니다.  
+파일 확장자 필터링 값을 확인해주세요. 원한다면 **$allowed_extension[]** 값을 수정해주세요.
 - 이 페이지로 이동해서 (https://blog.lael.be/demo-generator/imagecdn/my-example-site.com.php) 쓰여진 구문을 적용하세요.
 
 ## 사용 안내
