@@ -41,10 +41,12 @@ function save_and_display_file($target_host, $target_path)
         }
         file_put_contents($local_fullpath, $result);
         $content_type = mime_content_type($local_fullpath);
+        $content_length = filesize($local_fullpath);
 
         // display
         header('my-cache-status: MISS');
-        header("Content-Type: {$content_type}");
+        header("content-type: {$content_type}");
+        header("content-length: {$content_length}");
         echo $result;
     } else {
         error_404();
