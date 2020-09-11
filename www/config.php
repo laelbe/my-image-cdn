@@ -10,7 +10,7 @@ if (!defined('_MYCDN_')) {
 // original resource host
 $original_host = 'https://blog.lael.be';
 
-// allowed extensions
+// allowed extensions. please write in lowercase.
 $allowed_extension = array();
 $allowed_extension[] = 'png';
 $allowed_extension[] = 'jpg';

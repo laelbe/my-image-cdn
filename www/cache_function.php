@@ -14,7 +14,7 @@ function save_and_display_file($target_host, $target_path)
     $local_path = pathinfo($target_path, PATHINFO_DIRNAME);
     $local_filename = basename($target_path);
     $local_filename_ext = pathinfo($local_filename, PATHINFO_EXTENSION);
-    if (!in_array($local_filename_ext, $allowed_extension)) {
+    if (!in_array(strtolower($local_filename_ext), $allowed_extension)) {
         die('error'); // extension check
     }
 
