@@ -18,9 +18,17 @@ function save_and_display_file($target_host, $target_path)
         die('error'); // extension check
     }
 
+    $custom_headers = [
+    //  "Authorization: Bearer MySampleToken",
+    //  "Authorization: Basic MySampleCredentials",
+    //  "x-mycdn-worker: " . gethostname(),
+        "x-api-key: MyCustomKey",
+    ];
+
     $target_url = $target_host . $target_path;
 
     $ch = curl_init();
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $custom_headers);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
     curl_setopt($ch, CURLOPT_VERBOSE, false);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -28,8 +36,10 @@ function save_and_display_file($target_host, $target_path)
     curl_setopt($ch, CURLOPT_URL, $target_url);
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
     curl_setopt($ch, CURLOPT_MAXREDIRS, 10);
+    curl_setopt($ch, CURLINFO_HEADER_OUT, true);
     $result=curl_exec($ch);
     $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    // print_r(curl_getinfo($ch)); exit; // if you want to debug the request, use this line.
     curl_close($ch);
 
     if ($result && $httpcode == 200) {
