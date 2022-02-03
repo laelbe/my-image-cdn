@@ -3,14 +3,18 @@
  * You don't need to change this file.
  */
 define('_MYCDN_', true);
-require_once __DIR__ . '/cache_function.php';
 require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/cache_function.php';
 
 $_SERVER['REQUEST_URI'] = preg_replace('/\/\/+/', '/', $_SERVER['REQUEST_URI']);
 $_SERVER['REQUEST_URI'] = preg_replace('/\.\.+/', '.', $_SERVER['REQUEST_URI']);
 
 $url_path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $url_ext = pathinfo($url_path, PATHINFO_EXTENSION);
+
+if (!in_array($_SERVER['REQUEST_METHOD'], ['GET', 'DELETE'])) { // method check
+    error_404();
+}
 
 if (!in_array(strtolower($url_ext), $allowed_extension)) { // extension check
     error_404();
