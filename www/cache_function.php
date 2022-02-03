@@ -8,7 +8,11 @@ if (!defined('_MYCDN_')) {
 
 function save_and_display_file($target_host, $target_path)
 {
-    global $allowed_extension;
+    global $allowed_extension, $custom_headers, $mycdn_agentname;
+	if (!is_array($allowed_extension)) $allowed_extension = array();
+	if (!is_array($custom_headers)) $custom_headers = array();
+	if (empty($mycdn_agentname)) $mycdn_agentname = 'MYCDN/1.0';
+
     $current_path = __DIR__;
 
     $local_path = pathinfo($target_path, PATHINFO_DIRNAME);
@@ -18,13 +22,6 @@ function save_and_display_file($target_host, $target_path)
         die('error'); // extension check
     }
 
-    $custom_headers = [
-    //  "Authorization: Bearer MySampleToken",
-    //  "Authorization: Basic MySampleCredentials",
-    //  "x-mycdn-worker: " . gethostname(),
-        "x-api-key: MyCustomKey",
-    ];
-
     $target_url = $target_host . $target_path;
 
     $ch = curl_init();
@@ -32,7 +29,7 @@ function save_and_display_file($target_host, $target_path)
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
     curl_setopt($ch, CURLOPT_VERBOSE, false);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_USERAGENT, 'MYCDN/1.0');
+    curl_setopt($ch, CURLOPT_USERAGENT, $request_agent);
     curl_setopt($ch, CURLOPT_URL, $target_url);
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
     curl_setopt($ch, CURLOPT_MAXREDIRS, 10);
