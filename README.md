@@ -13,6 +13,10 @@ This code will help you to create your custom CDN Edge.
 - 캐시 적중 표시
 - 커스텀 헤더
 
+## 서버 요구사항 (Server Requirements)
+- Any version of PHP
+- Sufficient disk space to store the image.
+
 ## 설치 방법 (How to install)
 
 ### 아파치
