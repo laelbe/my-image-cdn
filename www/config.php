@@ -1,8 +1,10 @@
 <?php
+
 /**
  * my-image-cdn (https://github.com/laelbe/my-image-cdn)
  * configuration file.
  */
+
 if (!defined('_MYCDN_')) {
     exit();
 }

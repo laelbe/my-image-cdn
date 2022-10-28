@@ -1,7 +1,9 @@
 <?php
+
 /**
  * You don't need to change this file.
  */
+
 define('_MYCDN_', true);
 require_once __DIR__ . '/cache_function.php';
 require_once __DIR__ . '/config.php';
