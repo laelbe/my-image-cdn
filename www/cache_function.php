@@ -52,7 +52,7 @@ function save_and_display_file($target_host, $target_path)
 
         // create folder if not exist
         if (!file_exists($current_path . $local_path)) {
-            exec("mkdir -p {$current_path}{$local_path}");
+            mkdir($current_path . $local_path, 0755, true);
         }
         file_put_contents($local_fullpath, $result);
         $content_type = mime_content_type($local_fullpath);
