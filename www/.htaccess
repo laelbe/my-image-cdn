@@ -17,7 +17,7 @@ RewriteRule . /index.php [L]
 </IfModule>
 
 <IfModule mod_headers.c>
-<Files ~ "\.(png|jpg|jpeg|gif|css|js)$">
+<Files ~ "\.(png|jpg|jpeg|gif|webp|css|js)$">
 header set my-cache-status "HIT"
 header set cache-control "public, max-age=2678400"
 </Files>
